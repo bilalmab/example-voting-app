@@ -29,3 +29,13 @@ argocd app sync nginx-via-argo
 
 
 argocd app delete nginx-via-argo 
+
+
+argocd app create voting-via-argo \
+  --repo https://github.com/bilalmab/example-voting-app \
+  --path example-voting-app-2/k8s-specifications \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace default \
+  --sync-policy automated
+
+argocd app sync voting-via-argo
