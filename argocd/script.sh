@@ -16,11 +16,11 @@ password=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=
 
 argocd login localhost:8080 --username admin --password $password
 
-
+argocd repo add https://github.com/bilalmab/example-voting-app
 
 argocd app create nginx-via-argo \
-  --repo https://github.com/BMustafa97/nginx-kube \
-  --path . \
+  --repo https://github.com/bilalmab/example-voting-app \
+  --path nginx-app \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace default \
   --sync-policy automated
