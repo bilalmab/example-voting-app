@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/bilalmab/example-voting-app.git'
+    path: apps
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  sources:
+    - repoURL: 'https://github.com/bilalmab/example-voting-app/app1.git'
+      path: apps/app1
+      targetRevision: HEAD
+    - repoURL: 'https://github.com/bilalmab/example-voting-app/app2.git'
+      path: apps/app2
+      targetRevision: HEAD
